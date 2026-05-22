@@ -37,3 +37,20 @@ export type CardBooksProps = {
 
     publisher: string;
 };
+
+export type PaginationProps = {
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+    itemsPerPage: number;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+}
+
+export type SearchParamsProps = {
+    keyword?: string;
+    page?: number;
+    genre?: string | string[];
+    year?: string | string[];
+    sort?: string;
+}

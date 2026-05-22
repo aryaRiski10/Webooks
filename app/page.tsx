@@ -30,7 +30,7 @@ export default function Home() {
           <FeaturedSection />
           <PopularSection />
           <BeforeFooter />
-          <Footer />
+          
         </>
       )}
     </div>
