@@ -6,6 +6,7 @@ import { useBookStore, type Book } from "@/store/useBookStore";
 import { useBrowseStore } from "@/store/useBrowseStore";
 import type { PaginationProps } from "@/types/types";
 import { useEffect} from "react";
+import NotFound from "./NotFound";
 
 type Props = {
     keyword: string;
@@ -42,6 +43,8 @@ const SearchResult = ({ keyword }: Props) => {
 
         return genreMatch && yearMatch;
     })
+
+    console.log(filteringBooks.length);
     return (
         <div className="flex flex-col gap-6 max-sm:w-full md:w-3/4">
             <div className="flex justify-between gap-4 items-center">
@@ -76,11 +79,15 @@ const SearchResult = ({ keyword }: Props) => {
                     ))}
                 </div>
                 ) : (
-                <div className="grid min-[360px]:grid-cols-2 min-[500px]:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {filteringBooks.map((book: Book) => (
-                    <CardBookSimple key={book._id} book={book} />
-                    ))}
-                </div>
+                filteringBooks.length === 0 ? (
+                    <NotFound />
+                ) : (
+                    <div className="grid min-[360px]:grid-cols-2 min-[500px]:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {filteringBooks.map((book: Book) => (
+                        <CardBookSimple key={book._id} book={book} />
+                        ))}
+                    </div>
+                )
             )}
             <div className="flex justify-center mt-6">
                 <BrowsePagination />
