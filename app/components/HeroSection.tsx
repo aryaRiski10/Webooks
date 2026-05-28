@@ -1,6 +1,5 @@
 import { BookOpen } from 'lucide-react'
 import SearchInput from './SearchInput'
-import React from 'react'
 
 const HeroSection = () => {
   return (

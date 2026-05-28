@@ -104,11 +104,9 @@ export const useBookStore = create<BookStore>((set) => ({
         }
     },
     fetchBySearch: async (params: SearchParamsProps) => {
-        console.log(params);
         set({ isSearchLoading: true });
         try{
             const { books, pagination } = await getBooksBySearch(params);
-            console.log(books, pagination);
             set({ searchBooks: books, searchPagination: pagination });
         } catch (error) {
             console.error(error);

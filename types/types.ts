@@ -54,3 +54,8 @@ export type SearchParamsProps = {
     year?: string | string[];
     sort?: string;
 }
+
+export type Genre = {
+    count: number;
+    genre: string;
+}

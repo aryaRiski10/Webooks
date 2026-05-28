@@ -1,6 +1,6 @@
 import { getBookById} from '@/lib/data';
 import { slugify } from '@/lib/utils';
-import { ChevronRight, Earth, ShoppingCart } from 'lucide-react';
+import { BookUser, ChevronRight, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import BookImage from '@/components/books/BookImage';
 
@@ -20,6 +20,8 @@ const BookDetail = async ({ params }: Props) => {
       </a> 
     )
   )
+  const urlBuy = book.buy_links.map((item:any) => item.url)
+  const urlAuthor = book.author.url
 
   return (
     <main className="max-w-7xl flex flex-col mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-20 px-6 gap-20">
@@ -85,14 +87,14 @@ const BookDetail = async ({ params }: Props) => {
           {/* Purchase Options */}
           <div className="flex flex-col gap-4 mt-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button className="bg-[#5c1a1b] text-white text-on-primary py-4 px-8 font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 hover:bg-[#782124] transition-all active:scale-[0.98] cursor-pointer">
+              <Link href={urlBuy[0]} className="bg-indigo-500 text-white text-on-primary py-4 px-8 font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 hover:bg-indigo-600 transition-all active:scale-[0.98] cursor-pointer" target="_blank">
                 <ShoppingCart />
                 Gramedia
-              </button>
-              <button className="border border-outline text-on-surface py-4 px-8 font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 transition-all active:scale-[0.98] cursor-pointer">
-                <Earth />
-                Book Depository
-              </button>
+              </Link>
+              <Link href={urlAuthor} className="border border-outline text-on-surface py-4 px-8 font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 transition-all active:scale-[0.98] cursor-pointer" target="_blank">
+                <BookUser />
+                Author Profile
+              </Link>
               
             </div>
             

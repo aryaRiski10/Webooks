@@ -45,7 +45,7 @@ export default function CardBookSimple({ book }: { book: CardBooksProps }) {
         </CardHeader>
         <CardFooter className="p-4">
           <Link href={`/books/${book._id}/${slugify(book.title)}`} className="w-full">
-            <Button className="w-full text-xs">View Detail</Button>
+            <Button className="w-full text-xs cursor-pointer">View Detail</Button>
           </Link>
         </CardFooter>
       </CardContent>

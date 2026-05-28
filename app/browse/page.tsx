@@ -25,11 +25,8 @@ const BrowsePage = async ({searchParams}: Props) => {
         sort: sort || "" 
     });
 
-    const getAllGenres = await getGenres();
-
-    // const getYears = books.map((book: Book) => {
-    //     return (book.details.published_date?.split(" ").pop())
-    // })
+    const dataGenres = await getGenres();
+    const getAllGenres = dataGenres.genres;
 
     const genres = Array.from<string>(
         new Set(

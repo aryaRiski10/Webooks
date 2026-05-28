@@ -22,8 +22,8 @@ export async function getBookById(_id: string){
 export async function getGenres(){
     const res = await fetch(`https://api.bukuacak.shabsolute.tech/api/v1/stats/genre`)
     const data = await res.json()
-    const genres = data.genre_statistics
-    return genres
+    // const genres = data.genre_statistics
+    return { genres: data.genre_statistics, totalGenres: data.total_genres }
 }
 
 export async function getBooksByNewest(){
@@ -51,6 +51,5 @@ export async function getBooksBySearch({ keyword, page, genre, year, sort }: Sea
     const url = `https://api.bukuacak.shabsolute.tech/api/v1/book?${params.toString()}`;
     const res = await fetch(url)
     const data = await res.json()
-    console.log(url)
     return { books: data.books, pagination: data.pagination }
 }

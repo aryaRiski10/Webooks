@@ -1,7 +1,7 @@
 'use client'
 import CardBookSimple from "@/components/books/CardBookSimple";
 import SortBy from "./SortBy";
-import BrowsePagination from "./Pagination";
+import BrowsePagination from "../../../components/Pagination";
 import { useBookStore, type Book } from "@/store/useBookStore";
 import { useBrowseStore } from "@/store/useBrowseStore";
 import type { PaginationProps } from "@/types/types";
@@ -14,11 +14,6 @@ type Props = {
 const SearchResult = ({ keyword }: Props) => {
     const { searchBooks, searchPagination, fetchBySearch, isSearchLoading, setSearchBooks, setSearchPagination } = useBookStore();
     const { selectedGenres, selectedYears, currentPage } = useBrowseStore();
-
-    // useEffect(() => {
-    //     setSearchBooks(books);
-    //     setSearchPagination(pagination);
-    // }, []);
 
     useEffect(() => {
         fetchBySearch({
@@ -44,7 +39,6 @@ const SearchResult = ({ keyword }: Props) => {
         return genreMatch && yearMatch;
     })
 
-    console.log(filteringBooks.length);
     return (
         <div className="flex flex-col gap-6 max-sm:w-full md:w-3/4">
             <div className="flex justify-between gap-4 items-center">

@@ -8,20 +8,12 @@ import type { PaginationProps } from "@/types/types";
 import { useBrowseStore } from "@/store/useBrowseStore";
 import { useBookStore } from "@/store/useBookStore";
 
-type Props = {
-    pagination: PaginationProps;
-    keyword?: string;
-    totalPages?: number;
-}
 
 export default function BrowsePagination() {
     const { currentPage, setCurrentPage} = useBrowseStore();
     const { searchPagination } = useBookStore();
-    
-    // const query = keyword || "";
-    // const currentPage = pagination.currentPage;
-    // const totalPages = totalPages || pagination.totalPages;
 
+    console.log(searchPagination);
     return (
         <Pagination>
             <PaginationContent>
