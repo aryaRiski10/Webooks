@@ -1,26 +1,36 @@
 'use client'
-import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from "react"
-import { useBrowseStore } from "@/store/useBrowseStore"
-import { useBookStore } from "@/store/useBookStore"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 type Props = {
     genres: string[];
 }
 const Filter = ({ genres }: Props) => {
     const [isShowFilter, setIsShowFilter] = useState(false);
-    const { selectedGenres, setSelectedGenres } = useBrowseStore();
-    const { selectedYears, setSelectedYears } = useBrowseStore();
-    // const { searchBooks } = useBookStore();
+    const pathname = usePathname();
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
     const LIMIT = 10;
     const visibleGenres = isShowFilter ? genres : genres.slice(0, LIMIT);
 
     const years = ["2026", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016"];
+    const selectedGenre = searchParams.get("genre") ?? "";
+    const selectedYear = searchParams.get("year") ?? "";
 
-    // const getYearsFromBooks = searchBooks.map((book) => book.details.published_date?.split(" ").pop() || "");
-    // const uniqueYears = Array.from(new Set(getYearsFromBooks));
+    const updateParam = (key: "genre" | "year", value: string) => {
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (value) {
+            params.set(key, value);
+        } else {
+            params.delete(key);
+        }
+
+        params.set("page", "1");
+        router.push(`${pathname}?${params.toString()}`);
+    };
 
     return (
         <div className="relative max-sm:w-full md:w-1/4">
@@ -31,14 +41,13 @@ const Filter = ({ genres }: Props) => {
                 <div className="filters flex flex-col gap-8">
                     <div className="flex flex-col w-full">
                         <h3 className="text-lg max-lg:text-sm text-gray-400">Genre</h3>
-                        <RadioGroup value={selectedGenres} onValueChange={setSelectedGenres} className="flex flex-col gap-2 mt-2">
+                        <RadioGroup value={selectedGenre} onValueChange={(value) => updateParam("genre", value)} className="flex flex-col gap-2 mt-2">
                             <div className="flex items-center gap-2 max-lg:text-sm text-gray-700 cursor-pointer transition-colors">
                                 <RadioGroupItem value="" id="all-genres"/>
                                 <label htmlFor="all-genres">All</label>
                             </div>
                             {visibleGenres.map((genre) => (
                                 <div key={genre} className="flex items-center gap-2 max-lg:text-sm text-gray-700 cursor-pointer transition-colors">
-                                    {/* <Checkbox checked={selectedGenres.includes(genre)} onCheckedChange={() => setSelectedGenres(genre)}/> */}
                                     <RadioGroupItem value={genre} id={genre}/>
                                     <label htmlFor={genre}>{genre}</label>
                                 </div>
@@ -50,14 +59,13 @@ const Filter = ({ genres }: Props) => {
                     </div>
                     <div className="flex flex-col w-full">
                         <h3 className="text-lg max-lg:text-sm text-gray-400">Year</h3>
-                        <RadioGroup value={selectedYears} onValueChange={setSelectedYears} className="flex flex-col gap-2 mt-2">
+                        <RadioGroup value={selectedYear} onValueChange={(value) => updateParam("year", value)} className="flex flex-col gap-2 mt-2">
                             <div className="flex items-center gap-2 max-lg:text-sm text-gray-700 cursor-pointer transition-colors">
                                 <RadioGroupItem value="" id="all-years"/>
                                 <label htmlFor="all-years">All</label>
                             </div>
                             {years.map((year) => (
                                 <div key={year} className="flex items-center gap-2 max-lg:text-sm text-gray-700 cursor-pointer transition-colors">
-                                    {/* <Checkbox checked={selectedYears.includes(year)} onCheckedChange={() => toggleYear(year)}/> */}
                                     <RadioGroupItem value={year} id={year}/>
                                     <label htmlFor={year}>{year}</label>
                                 </div>

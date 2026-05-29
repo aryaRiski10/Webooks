@@ -1,10 +1,12 @@
-import { getGenres } from "@/lib/data";
+import { getBooksBySearch, getGenres } from "@/lib/data";
 import { slugify } from "@/lib/utils";
 import { BookOpen } from "lucide-react";
 import BooksSection from "./components/BooksSection";
+import type { CardBooksProps, PaginationProps } from "@/types/types";
 
 type Props = {
     params: Promise<{slug: string}>;
+    searchParams: Promise<{ page?: string }>;
 }
 
 type GenreItem = {
@@ -14,10 +16,13 @@ type GenreItem = {
 
 type GenreAccumulator = Record<string, GenreItem>;
 
-const GenrePage = async ({ params }: Props) => {
+const GenrePage = async ({ params, searchParams }: Props) => {
     const { slug } = await params;
+    const query = await searchParams;
     const dataGenres = await getGenres();
     const genres = dataGenres.genres;
+    const pageParam = Number.parseInt(query.page ?? "1", 10);
+    const currentPage = Number.isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
 
     const cleanGenres = (genre : string) => {
         return genre.trim().replace(/,$/, '').trim()
@@ -44,6 +49,26 @@ const GenrePage = async ({ params }: Props) => {
 
     const genre = uniqueGenres.find((item) => slugify(item.genre) === slug)
 
+    let books: CardBooksProps[] = [];
+    let pagination: PaginationProps = {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 0,
+        itemsPerPage: 20,
+        hasNextPage: false,
+        hasPrevPage: false,
+    };
+
+    if (genre?.genre) {
+        const searchResult = await getBooksBySearch({
+            genre: genre.genre,
+            page: currentPage,
+        });
+
+        books = searchResult.books as CardBooksProps[];
+        pagination = searchResult.pagination as PaginationProps;
+    }
+
     return (
         <section className="py-16 px-4 bg-gray-50">
             <div className="w-full max-w-6xl mx-auto">
@@ -58,7 +83,11 @@ const GenrePage = async ({ params }: Props) => {
                             Explore <b>{genre?.count || 0}</b> books from <b>{genre?.genre || 'unknown'}</b> genre
                         </p>
                     </div>
-                <BooksSection genre={genre?.genre} />
+                <BooksSection
+                    books={books}
+                    pagination={pagination}
+                    currentPage={currentPage}
+                />
             </div>
         </section>
         
