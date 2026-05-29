@@ -32,14 +32,28 @@ const GenreSection = () => {
                     </h2>
                 </div>
             </div>
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-4 justify-center">
-                {listGenres}
-                <Link href="/genres">
-                    <div className="flex gap-2 items-center bg-indigo-50 rounded-lg shadow-md p-4 transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 hover:text-white text-indigo-900">
-                        <span className="text-lg font-semibold">All Genre</span>
-                    </div>
-                </Link>
-            </div>
+            {isLoading ? (
+                <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-4 justify-center">
+                    {Array.from({ length: 9 }).map((_, index) => (
+                        <div
+                            key={index}
+                            className="w-50 flex gap-2 items-center bg-indigo-50 rounded-lg shadow-md p-4 transition delay-50 duration-300 ease-in-out animate-pulse"
+                        >
+                            <div className="h-6 w-full bg-gray-200 rounded-full" />
+                        </div>
+                    ))}
+                </div>
+            ):(
+                <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-4 justify-center">
+                    {listGenres}
+                    <Link href="/genres">
+                        <div className="flex gap-2 items-center bg-indigo-50 rounded-lg shadow-md p-4 transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 hover:text-white text-indigo-900">
+                            <span className="text-lg font-semibold">All Genre</span>
+                        </div>
+                    </Link>
+                </div>
+            )}
+            
         </section>
     )
 }

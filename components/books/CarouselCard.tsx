@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/carousel"
 
 export function CarouselCard({books}: {books: Book[]}) {
+
+  console.log(books)
   return (
     <Carousel
       opts={{

@@ -13,7 +13,7 @@ import Footer from '@/components/Footer';
 export default function Home() {
   const books = useBookStore((state) => state.books);
   const fetchBooks = useBookStore((state) => state.fetchBooks);
-  const isLoading = useBookStore((state) => state.isLoading);
+  // const isLoading = useBookStore((state) => state.isLoading);
 
   useEffect(() => {
     fetchBooks();
@@ -21,18 +21,11 @@ export default function Home() {
   
   return (
     <div className="flex flex-col bg-zinc-50 font-sans dark:bg-black">
-      {isLoading ? (
-        <div className='text-center h-screen flex items-center justify-center'>Loading...</div>
-      ) : (
-        <>
-          <HeroSection />
-          <GenreSection />
-          <FeaturedSection />
-          <PopularSection />
-          <BeforeFooter />
-          
-        </>
-      )}
+      <HeroSection />
+      <GenreSection />
+      <FeaturedSection />
+      <PopularSection />
+      <BeforeFooter />
     </div>
   );
 }
