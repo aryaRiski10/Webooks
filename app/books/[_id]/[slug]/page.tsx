@@ -77,7 +77,7 @@ const BookDetail = async ({ params }: Props) => {
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-headline-lg text-headline-lg text-3xl text-on-background">
+            <p className="font-headline-lg text-headline-lg text-3xl text-[#ff3232] font-semibold price-text animate-pulse">
               {book.details.price}
             </p>
             <p className="font-label-sm text-label-sm text-xl text-on-surface-variant italic">

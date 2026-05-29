@@ -1,10 +1,7 @@
-import CardBookSimple from "@/components/books/CardBookSimple";
-import { getBooksBySearch, getGenres } from "@/lib/data";
+import { getGenres } from "@/lib/data";
 import { slugify } from "@/lib/utils";
 import { BookOpen } from "lucide-react";
-import type { CardBooksProps } from "@/types/types";
 import BooksSection from "./components/BooksSection";
-import { useGenreStore } from "@/store/useGenreStore";
 
 type Props = {
     params: Promise<{slug: string}>;
@@ -46,9 +43,6 @@ const GenrePage = async ({ params }: Props) => {
     )
 
     const genre = uniqueGenres.find((item) => slugify(item.genre) === slug)
-
-    // const dataBooks = await getBooksBySearch({ genre: genre?.genre })
-    // const books = dataBooks.books;
 
     return (
         <section className="py-16 px-4 bg-gray-50">

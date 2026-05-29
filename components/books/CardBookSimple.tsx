@@ -38,7 +38,7 @@ export default function CardBookSimple({ book }: { book: CardBooksProps }) {
       <CardContent className="p-0 flex flex-col h-full justify-between">
         <CardHeader className="flex flex-col gap-4 p-4">
           <CardAction className="w-full flex-col col-start-1 flex items-start justify-between gap-2">
-            <Badge className={`mt-1 text-xs ${book.category.name ? "flex" : "hidden"}`} variant="secondary">{book.category.name}</Badge>
+            <Badge className={`bg-gray-200 mt-1 text-xs ${book.category.name ? "flex" : "hidden"}`} variant="secondary">{book.category.name}</Badge>
             <CardTitle className="text-xs line-clamp-2">{book.title}</CardTitle>
             <CardDescription className="text-xs text-gray-500">by {book.author.name}</CardDescription>
           </CardAction>
